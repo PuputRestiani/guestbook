@@ -23,6 +23,6 @@ class GuestController extends Controller
     {
         $guest = Guest::find(request('id'));
         $guest->delete();
-        return redirect('/admin/guests');
+        return redirect()->route('admin.guests.index');
     }
 }

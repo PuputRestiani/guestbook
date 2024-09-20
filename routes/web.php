@@ -1,11 +1,11 @@
 <?php
 
+use App\Http\Controllers\FormGuestController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return redirect('/admin');
-});
+Route::get('/', [FormGuestController::class, 'index'])->name('form.index');
+Route::post('/', [FormGuestController::class, 'store'])->name('form.store');
 
 Auth::routes([
     'register' => false,
@@ -27,9 +27,14 @@ Route::group([
     Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
 
     //Routing CRUD: institution
-    
     Route::resource('/institution', App\Http\Controllers\InstitutionController::class);
 
+    //Routing CRUD: guests
     Route::resource('/guests', App\Http\Controllers\GuestController::class)
     ->only(['index', 'show','destroy' ]);
+
+    //Routing CRUD: reports
+    Route::resource('/reports', App\Http\Controllers\ReportController::class);
+
+    //Routing 
 });
